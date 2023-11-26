@@ -132,14 +132,33 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl) {
 
 	else if (a_ctrl_id == 200) {
 		//구성원 첫번째 이름 버튼 누르는 경우
+
+		//생성된 에디트박스 제거 초기화
+		DestroyControl(FindControl(10003));
+		DestroyControl(FindControl(10004));
+		DestroyControl(FindControl(20003));
+		DestroyControl(FindControl(20004));
+		DestroyControl(FindControl(10));
+		DestroyControl(FindControl(11));
+		DestroyControl(FindControl(10005));
+		DestroyControl(FindControl(10006));
+		DestroyControl(FindControl(12));
+		DestroyControl(FindControl(20005));
+		DestroyControl(FindControl(20006));
+		DestroyControl(FindControl(13));
+
+
+
 		SelectPenObject(RGB(128, 128, 128), 1);
 		Rectangle(710, 110, 940, 540); //시작점,끝점 좌표
 		SelectFontObject("consolas", 25, 1);
 		TextOut(720, 120, names[0]);  //첫번째 구성원 이름 출력
 		TextOut(725, 160, "항목:");
 		TextOut(725, 200, "가격:");
+		TextOut(725, 240, "지불자:");
 		void*p1=CreateEdit(790, 160, 120, 30, 10001, 0);  //첫번째 구성원 개인 항목 1(ID:10001)
 		void *p2=CreateEdit(790, 200, 120, 30, 10002, 0); //첫번째 구성원 개인 가격 1(ID:10002)
+		CreateEdit(790, 240, 120, 30, 8, 0);               //지불자 (8)
 		EnableEnterKey(p2);  //ENTER누르면 아래 총합 출력
 		
 		CreateButton("+", 730, 490, 180, 35, 10000);    // 개인항목 입력 추가버튼  (ID: 10000)
@@ -162,10 +181,12 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl) {
 	//개인비용 추가 버튼 
 	else if (a_ctrl_id == 10000) {
 		SelectFontObject("consolas", 25, 1);
-		TextOut(725, 250, "항목:");
-		TextOut(725, 290, "가격:");
-		void*p3=CreateEdit(790, 250, 120, 30, 20001, 0);
-		void* p4 = CreateEdit(790, 290, 120, 30, 20002, 0);
+		TextOut(725, 280, "항목:");
+		TextOut(725, 320, "가격:");
+		TextOut(725, 360, "지불자:");
+		void*p3=CreateEdit(790, 280, 120, 30, 20001, 0);
+		void* p4 = CreateEdit(790, 320, 120, 30, 20002, 0);
+		CreateEdit(790,360, 120, 30, 9, 0);
 		EnableEnterKey(p4);
 
 		ShowDisplay();
@@ -195,14 +216,31 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl) {
 		TextOut(720, 120, names[1]);  //개인비용 입력칸에 이름 출력 
 		TextOut(725, 160, "항목:");
 		TextOut(725, 200, "가격:");
+		TextOut(725, 240, "지불자:");
+
+
 		
 		//*****에디트박스 지우는코드 넣어야함
-		//10001 10002 20001 20002 지워야함 
-
+		//10001 10002 20001 20002 8 9지워야함 
+		//다시 버튼 누르는 경우를 생각해보니까 다 지워야함..
+		DestroyControl(FindControl(10001));
+		DestroyControl(FindControl(10002));
+		DestroyControl(FindControl(20001));
+		DestroyControl(FindControl(20002));
+		DestroyControl(FindControl(8));
+		DestroyControl(FindControl(9));
+		DestroyControl(FindControl(10005));
+		DestroyControl(FindControl(10006));
+		DestroyControl(FindControl(12));
+		DestroyControl(FindControl(20005));
+		DestroyControl(FindControl(20006));
+		DestroyControl(FindControl(13));
 
 		//두번째구성원 에디트박스 생성
 		void*p5=CreateEdit(790, 160, 120, 30, 10003, 0);
 		void* p6 = CreateEdit(790, 200, 120, 30, 10004, 0);
+		CreateEdit(790, 240, 120, 30, 10, 0);               //지불자 (10)
+
 		EnableEnterKey(p6);
 
 		CreateButton("+", 730, 490, 180, 35, 111); 
@@ -225,11 +263,15 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl) {
 
 
 	else if (a_ctrl_id == 111) { //2번째 사람 개인항목 추가 버튼 번호
+		
 		SelectFontObject("consolas", 25, 1);
-		TextOut(725, 250, "항목:");
-		TextOut(725, 290, "가격:");
-		void*p7=CreateEdit(790, 250, 120, 30, 20003, 0);
-		void* p8 = CreateEdit(790, 290, 120, 30, 20004, 0);
+		TextOut(725, 280, "항목:");
+		TextOut(725, 320, "가격:");
+		TextOut(725, 360, "지불자:");
+		void* p7 = CreateEdit(790, 280, 120, 30, 20003, 0);
+		void* p8 = CreateEdit(790, 320, 120, 30, 20004, 0);
+		CreateEdit(790, 360, 120, 30, 11, 0);
+
 		EnableEnterKey(p8);
 
 
@@ -260,12 +302,26 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl) {
 		TextOut(720, 120, names[2]);  //3번째 사람 이름 출력
 		TextOut(725, 160, "항목:");
 		TextOut(725, 200, "가격:");
+		TextOut(725, 240, "지불자:");
 
-		//에디트박스 제거해야함 10003 10004 20003 20004 
+		//에디트박스 제거해야함 10003 10004 20003 20004 10 11
+		DestroyControl(FindControl(10003));
+		DestroyControl(FindControl(10004));
+		DestroyControl(FindControl(20003));
+		DestroyControl(FindControl(20004));
+		DestroyControl(FindControl(10));
+		DestroyControl(FindControl(11));
+		DestroyControl(FindControl(10001));
+		DestroyControl(FindControl(10002));
+		DestroyControl(FindControl(20001));
+		DestroyControl(FindControl(20002));
+		DestroyControl(FindControl(8));
+		DestroyControl(FindControl(9));
 
 
 		void*p3=CreateEdit(790, 160, 120, 30, 10005, 0);
 		void* p4 = CreateEdit(790, 200, 120, 30, 10006, 0);
+		CreateEdit(790, 240, 120, 30, 12, 0);
 		EnableEnterKey(p4);
 
 		CreateButton("+", 730, 490, 180, 35, 222); //3번째사람 개인항목 추가버튼 생성
@@ -284,14 +340,17 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl) {
 			}
 
 
-	else if (a_ctrl_id == 222) { //2번째 사람 개인항목 추가 버튼 번호
+	else if (a_ctrl_id == 222) { //3번째 사람 개인항목 추가 버튼 번호
+			
 				SelectFontObject("consolas", 25, 1);
-				TextOut(725, 250, "항목:");
-				TextOut(725, 290, "가격:");
-				CreateEdit(790, 250, 120, 30, 20005, 0);
-				void* p3 = CreateEdit(790, 290, 120, 30, 20006, 0);
-				EnableEnterKey(p3);
+				TextOut(725, 280, "항목:");
+				TextOut(725, 320, "가격:");
+				TextOut(725, 360, "지불자:");
+				CreateEdit(790, 280, 120, 30, 20005, 0);
+				void* p3 = CreateEdit(790, 320, 120, 30, 20006, 0);
+				CreateEdit(790, 360, 120, 30, 13, 0);
 
+				EnableEnterKey(p3);
 
 
 				ShowDisplay();
