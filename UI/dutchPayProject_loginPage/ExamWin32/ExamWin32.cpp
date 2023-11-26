@@ -14,11 +14,11 @@ struct UserInfo {
 struct UserInfo users[MAX_USERS];
 
 // 로그인 함수
-int login(struct UserInfo* users, int userCount, const char* input_id, const char* input_pw) 
+int login(struct UserInfo* users, int userCount, const char* input_id, const char* input_pw)
 {
     for (int i = 0; i < userCount; ++i) {
         // 사용자 정보와 입력된 정보를 비교하여 일치하는지 확인
-        if (strcmp(users[i].id, input_id) == 0 && strcmp(users[i].pw, input_pw) == 0) 
+        if (strcmp(users[i].id, input_id) == 0 && strcmp(users[i].pw, input_pw) == 0)
         {
             return 1; // 로그인 성공
         }
@@ -28,10 +28,10 @@ int login(struct UserInfo* users, int userCount, const char* input_id, const cha
 }
 
 // 회원가입 함수
-int registerUser(struct UserInfo* users, int* userCount, const char* input_id, const char* input_pw) 
+int registerUser(struct UserInfo* users, int* userCount, const char* input_id, const char* input_pw)
 {
     // 사용자 수가 최대 사용자 수를 초과하는지 확인
-    if (*userCount >= MAX_USERS) 
+    if (*userCount >= MAX_USERS)
     {
         return 0; // 회원가입 실패 (최대 사용자 수 초과)
     }
@@ -76,18 +76,19 @@ void login_page()
     // 아이디 입럭받는 에디트와 버튼
     SelectFontObject("consolas", 30, 1);
     printf(100, 300, "아이디");
-    CreateEdit(200, 300, 200, 30, 300, 0);
+    CreateEdit(200, 300, 200, 30, 3000, 0);
     printf(100, 350, "비밀번호");
-    CreateEdit(200, 350, 200, 30, 301, 0);
-    CreateButton("로그인", 200, 400, 50, 30, 302);
+    CreateEdit(200, 350, 200, 30, 3001, 0);
+    CreateButton("로그인", 200, 400, 50, 30, 3002);
 
     // 회원가입 입럭받는 에디트와 버튼
     SelectFontObject("consolas", 30, 1);
     printf(510, 300, "아이디");
-    CreateEdit(600, 300, 200, 30, 303, 0);
+    CreateEdit(600, 300, 200, 30, 3003, 0);
     printf(510, 350, "비밀번호");
-    CreateEdit(600, 350, 200, 30, 304, 0);
-    CreateButton("회원가입", 600, 400, 70, 30, 305);
+    CreateEdit(600, 350, 200, 30, 3004, 0);
+    CreateButton("회원가입", 600, 400, 70, 30, 3005);
+
 
 }
 
@@ -95,14 +96,14 @@ void login_page()
 void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 {
     // login page 안에서의 컨트롤
-    if (a_ctrl_id == 302)  // 로그인 버튼이 눌렸을 때
+    if (a_ctrl_id == 3002)  // 로그인 버튼이 눌렸을 때
     {
         char id[64]; // 아이디 문자열을 저장할 변수
-        void* id_edit = FindControl(300); // 아이디 에디트 컨트롤의 주소를 얻는다.
+        void* id_edit = FindControl(3000); // 아이디 에디트 컨트롤의 주소를 얻는다.
         GetCtrlName(id_edit, id, 64);
 
         char pw[64]; // 패스워드 문자열을 저장할 변수
-        void* pw_edit = FindControl(301); // 에디트 컨트롤의 주소를 얻는다.
+        void* pw_edit = FindControl(3001); // 에디트 컨트롤의 주소를 얻는다.
         GetCtrlName(pw_edit, pw, 64);
 
         int flag = 0;  // 로그인 성공 여부를 받을 변수(1이면 성공)
@@ -111,7 +112,7 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
         if (flag == 1)
         {
             printf(300, 500, "로그인 성공");
-            CreateButton("정산하러 가기", 800, 100, 100, 30, 306);
+            CreateButton("정산하러 가기", 800, 100, 100, 30, 3006);
         }
         else
         {
@@ -119,19 +120,19 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
         }
     }
 
-    if (a_ctrl_id == 305)  // 회원 가입 버튼이 눌렸을 때
+    if (a_ctrl_id == 3005)  // 회원 가입 버튼이 눌렸을 때
     {
         char newid[64]; // 아이디 문자열을 저장할 변수
-        void* newid_edit = FindControl(303); // 아이디 에디트 컨트롤의 주소를 얻는다.
+        void* newid_edit = FindControl(3003); // 아이디 에디트 컨트롤의 주소를 얻는다.
         GetCtrlName(newid_edit, newid, 64);
 
         char newpw[64]; // 패스워드 문자열을 저장할 변수
-        void* newpw_edit = FindControl(304); // 에디트 컨트롤의 주소를 얻는다.
+        void* newpw_edit = FindControl(3004); // 에디트 컨트롤의 주소를 얻는다.
         GetCtrlName(newpw_edit, newpw, 64);
 
         int flag = 0;  // 회원가입 성공 여부를 받을 변수(1이면 성공)
         flag = registerUser(users, &userCount, newid, newpw);
-        
+
         if (flag == 1)
         {
             ::MessageBox(gh_main_wnd, "회원가입에 성공하였습니다.", "회원가입 성공", MB_ICONSTOP);
@@ -142,9 +143,17 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
         }
     }
 
-    if (a_ctrl_id == 306)  // 정산 페이지로 가는 버튼을 누르면
+    if (a_ctrl_id == 3006)  // 정산 페이지로 가는 버튼을 누르면
     {
         Clear();
+        DestroyControl(FindControl(3000));
+        DestroyControl(FindControl(3001));
+        DestroyControl(FindControl(3002));
+        DestroyControl(FindControl(3003));
+        DestroyControl(FindControl(3004));
+        DestroyControl(FindControl(3005));
+        DestroyControl(FindControl(3006));
+
     }
     ShowDisplay(); // 정보를 윈도우에 출력한다.
 }
