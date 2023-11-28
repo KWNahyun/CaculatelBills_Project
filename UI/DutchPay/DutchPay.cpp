@@ -159,7 +159,7 @@ void main_page() {
 
 	void* p111 = CreateEdit(450, 150, 120, 25, 1, 0); //항목 입력 컨트롤 (1번)
 	void* p222 = CreateEdit(450, 180, 120, 25, 2, 0);//가격 입력 컨트롤(2번)
-	void* p333 = CreateEdit(450, 210, 120, 25, 3, 0);             //지불자 입력 컨트롤 (3번)
+	void* p333 = CreateEdit(450, 210, 120, 25, 3, 0); //지불자 입력 컨트롤 (3번)
 
 	EnableEnterKey(p333);
 
@@ -180,8 +180,98 @@ void main_page() {
 	ShowDisplay();
 }
 
-//정산결과출력페이지=====================================================================
+// 마지막 페이지에 누가 누구한테 얼마를 줘야하는지 계산하고 출력하는 함수(멤버가 3명일 때...)
+// 일단 사용자들의 이름을 a, b, c로 출력함.
+void calcul_algo(int a, int b, int c)
+{
+	int mean = (a + b + c) / 3;
+	a = mean - a;
+	b = mean - b;
+	c = mean - c;
 
+	int atob = 0;
+	int btoa = 0;
+	int btoc = 0;
+	int ctob = 0;
+	int atoc = 0;
+	int ctoa = 0;
+
+	if (a > 0)
+	{
+		if (b < 0)
+		{
+			while (b != 0)
+			{
+				a--;
+				b++;
+				atob++;
+			}
+		}
+		if (c < 0)
+		{
+			while (c != 0)
+			{
+				a--;
+				c++;
+				atoc++;
+			}
+		}
+	}
+
+	if (b > 0)
+	{
+		if (a < 0)
+		{
+			while (a != 0)
+			{
+				b--;
+				a++;
+				btoa++;
+			}
+		}
+		if (c < 0)
+		{
+			while (c != 0)
+			{
+				b--;
+				c++;
+				btoc++;
+			}
+		}
+	}
+
+	if (c > 0)
+	{
+		if (a < 0)
+		{
+			while (a != 0)
+			{
+				c--;
+				a++;
+				ctoa++;
+			}
+		}
+		if (b < 0)
+		{
+			while (b != 0)
+			{
+				c--;
+				b++;
+				ctob++;
+			}
+		}
+	}
+
+	printf(400, 450, "a->b: %d원\n", atob);
+	printf(400, 470, "b->a: %d원\n", btoa);
+	printf(400, 490, "b->c: %d원\n", btoc);
+	printf(650, 450, "c->b: %d원\n", ctob);
+	printf(650, 470, "a->c: %d원\n", atoc);
+	printf(650, 490, "c->a: %d원\n", ctoa);
+}
+
+
+//정산결과출력페이지=====================================================================
 void final_page() {
 
 	ChangeWorkSize(1000, 600);
@@ -207,15 +297,9 @@ void final_page() {
 		CreateButton(names[i], 90, 120 + 35 * i, 120, 30, 301 + i);
 		//생성 순서대로 301번박스,302,303~~
 
-
-
 	}
 
 }
-
-
-
-
 
 
 
