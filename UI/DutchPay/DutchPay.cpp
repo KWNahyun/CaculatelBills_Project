@@ -97,6 +97,8 @@ void login_page()
 
 //========================================
 // main page 데이터 관리
+
+//개인항목 데이터 관리
 int get_value1 = 0; //첫번째 구성원 개인 항목가격1 (ID:10002)
 int get_value2 = 0; //첫번째 구성원 개인 항목 가격2 (20004)
 int get_value3 = 0; //두번째구성원 개인 항목 가격1 (10004)
@@ -104,6 +106,10 @@ int get_value4 = 0;  //두번째구성원 개인 항목 가격2 (20004)
 int get_value5 = 0;  //세번째구성원 개인 항목 가격1 (10006)
 int get_value6 = 0;  //세번째 구성원 개인 항목 가격2 (20006)
 int N = 0;
+char personal_item[50][50];
+char personal_names[50][50];
+
+
 
 //멤버 정보 관리 구조체
 struct MemberData {
@@ -117,6 +123,8 @@ char item[50][50];   //공동비용 상품이름저장
 int price[50];       //공동비용 상품 가격 
 char name_paid[50][50];  //공동비용 지불자 이름
 
+
+
 // main page 구성
 void main_page() {
 	ChangeWorkSize(1000, 600);
@@ -128,6 +136,7 @@ void main_page() {
 	Rectangle(50, 100, 300, 550); //MEMBER BOX
 	Rectangle(350, 100, 650, 550); //공동비용 BOX
 	Rectangle(700, 100, 950, 550); //개인비용 BOX
+	CreateButton("NEXT", 900, 50, 30, 30, 3007);  //정산결과출력하기 버튼 ID :3007
 
 	SelectFontObject("consolas", 45, 1);
 	printf(125, 50, "MEMBER");
@@ -171,9 +180,133 @@ void main_page() {
 	ShowDisplay();
 }
 
+//정산결과출력페이지=====================================================================
+
+void final_page() {
+
+	ChangeWorkSize(1000, 600);
+	SelectFontObject("consolas", 12, 0);
+	SetTextColor(RGB(128, 128, 128));
+	for (int x = 0; x < 20; x++) printf(x * 50, 0, "%d", x * 50);   //x좌표
+	for (int y = 1; y < 20; y++)  printf(0, y * 50, "%d", y * 50); //y좌표
+	SelectPenObject(RGB(128, 128, 128), 2); //박스선 색,두께
+	Rectangle(50, 100, 300, 550); //MEMBER BOX
+	SelectFontObject("consolas", 45, 1);
+	printf(125, 50, "MEMBER");
+	Rectangle(330, 100, 950, 550); //최종정산 결과 출력박스
+	printf(600, 50, "정산");
+
+
+	//나중에 지워야함 일단 실행 돌려볼라고 임의로 앞계속 반복하기 귀찮아서 일단 썻으
+
+
+
+
+	for (int i = 0; i < N; i++) {
+
+		CreateButton(names[i], 90, 120 + 35 * i, 120, 30, 301 + i);
+		//생성 순서대로 301번박스,302,303~~
+
+
+
+	}
+
+}
+
+
+
+
+
+
+
+
 // 컨트롤을 조작했을 때 호출할 함수 만들기
 void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 {
+
+	//final_page에서 사용하는 컨트롤 코드================================
+	if (a_ctrl_id == 301) {
+
+		
+		SelectPenObject(RGB(128, 128, 128), 2); //박스선 색,두께
+		Rectangle(330, 100, 950, 550); //최종정산 결과 출력박스
+		Rectangle(350, 120, 930, 420); //최종정산 결과 출력박스
+		SelectFontObject("consolas", 30, 1);
+		TextOut(400, 150, "<공용소비>"); //구성원1이름 출력
+		SelectFontObject("consolas", 25, 1);
+		TextOut(400, 200, "-%s : %d원",item[0],price[0]);
+		TextOut(400, 250,"-%s : %d원", item[1],price[1]);
+		TextOut(400, 300, "===============");
+		TextOut(400, 350, "N빵: %d원", (price[0]+price[1])/N);
+		SelectFontObject("consolas", 30, 1);
+		TextOut(650,150,"<%s의 개별소비>",names[0]); //구성원1이름 출력
+		SelectFontObject("consolas", 25, 1);
+		TextOut(650, 200, "-%s :%d원", personal_item[0],get_value1); //개인비용 출력
+		TextOut(650, 250, "-%s :%d원", personal_item[1], get_value2);
+		TextOut(650, 300, "===============");
+		TextOut(650, 350, "총: %d원", get_value1+get_value2);
+		Line(615, 150, 615, 400);
+	
+
+
+	}
+
+	if (a_ctrl_id == 302) {
+
+
+		SelectPenObject(RGB(128, 128, 128), 2); //박스선 색,두께
+		Rectangle(330, 100, 950, 550); //최종정산 결과 출력박스
+		Rectangle(350, 120, 930, 420); //최종정산 결과 출력박스
+		SelectFontObject("consolas", 30, 1);
+		TextOut(400, 150, "<공용소비>"); //구성원1이름 출력
+		SelectFontObject("consolas", 25, 1);
+		TextOut(400, 200, "-%s : %d원",item[0],price[0]);
+		TextOut(400, 250,"-%s : %d원", item[1],price[1]);
+		TextOut(400, 300, "===============");
+		TextOut(400, 350, "N빵: %d원", (price[0]+price[1])/N);
+		SelectFontObject("consolas", 30, 1);
+		TextOut(650, 150, "<%s의 개별소비>", names[1]); //구성원이름 출력
+		SelectFontObject("consolas", 25, 1);
+		TextOut(650, 200, "-%s :%d원", personal_item[2], get_value3); //개인비용 출력
+		TextOut(650, 250, "-%s :%d원", personal_item[3], get_value4);
+		TextOut(650, 300, "===============");
+		TextOut(650, 350, "총: %d원", get_value3 + get_value4);
+		Line(615, 150, 615, 400);
+
+
+	}
+
+	if (a_ctrl_id == 303) {
+
+
+		SelectPenObject(RGB(128, 128, 128), 2); //박스선 색,두께
+		Rectangle(330, 100, 950, 550); //최종정산 결과 출력박스
+		Rectangle(350, 120, 930, 420); //최종정산 결과 출력박스
+		SelectFontObject("consolas", 30, 1);
+		TextOut(400, 150, "<공용소비>"); //구성원1이름 출력
+		SelectFontObject("consolas", 25, 1);
+		TextOut(400, 200, "-%s : %d원", item[0], price[0]);
+		TextOut(400, 250, "-%s : %d원", item[1], price[1]);
+		TextOut(400, 300, "===============");
+		TextOut(400, 350, "N빵: %d원", (price[0] + price[1]) / N);
+		SelectFontObject("consolas", 30, 1);
+		TextOut(650, 150, "<%s의 개별소비>", names[2]); //구성원이름 출력
+		SelectFontObject("consolas", 25, 1);
+		TextOut(650, 200, "-%s :%d원", personal_item[4], get_value5); //개인비용 출력
+		TextOut(650, 250, "-%s :%d원", personal_item[5], get_value6);
+		TextOut(650, 300, "===============");
+		TextOut(650, 350, "총: %d원", get_value5 + get_value6);
+		Line(615, 150, 615, 400);
+
+	}
+
+
+
+
+
+
+
+	//==================================================================
     // login page 안에서의 컨트롤
     if (a_ctrl_id == 3002)  // 로그인 버튼이 눌렸을 때
     {
@@ -240,6 +373,7 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		main_page();  // 메인 페이지 불러오기
     }
 
+
 	//======================================================================
     // main page 안에서의 컨트롤
 	if (a_ctrl_id == 1000) {//1000번 버튼(멤버 추가 버튼 누르는 경우)
@@ -302,6 +436,8 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		DestroyControl(FindControl(20005));
 		DestroyControl(FindControl(20006));
 		DestroyControl(FindControl(13));
+		DestroyControl(FindControl(111));
+		DestroyControl(FindControl(222));
 
 		SelectPenObject(RGB(128, 128, 128), 1);
 		Rectangle(710, 110, 940, 540); //시작점,끝점 좌표
@@ -315,7 +451,7 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		CreateEdit(790, 240, 120, 30, 8, 0);               //지불자 (8)
 		EnableEnterKey(p2);  //ENTER누르면 아래 총합 출력
 
-		CreateButton("+", 730, 490, 180, 35, 10000);    // 개인항목 입력 추가버튼  (ID: 10000)
+		CreateButton("+", 730, 490, 180, 35, 100);    // 개인항목 입력 추가버튼  (ID: 10000)
 
 		ShowDisplay();
 	}
@@ -329,10 +465,20 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		Rectangle(725, 450, 850, 475);
 		TextOut(730, 450, "총:%d원", get_value1 + get_value2);
 		ShowDisplay();
+
+		char personal_item1[60];
+		GetCtrlName(FindControl(10001), personal_item1, 25);
+		strcpy_s(personal_item[0], personal_item1);
+		char personal_name1[60];
+		GetCtrlName(FindControl(8), personal_name1, 25);
+		strcpy_s(personal_names[0], personal_name1);
+
+
+
 	}
 
 	//개인비용 추가 버튼 
-	else if (a_ctrl_id == 10000) {
+	else if (a_ctrl_id == 100) {
 		SelectFontObject("consolas", 25, 1);
 		TextOut(725, 280, "항목:");
 		TextOut(725, 320, "가격:");
@@ -349,7 +495,22 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 	//개인비용 두번째 값 입력시 엔터->총합계산
 	else if (a_ctrl_id == 20002 && a_notify_code == 1000) {
 		SelectFontObject("consolas", 25, 1);
+
+		//입력값 저장
 		get_value2 = GetIntDataFromControl(20002);
+
+		char personal_item2[60];
+		char personal_name2[60];
+
+		GetCtrlName(FindControl(20001), personal_item2, 25);
+		GetCtrlName(FindControl(9), personal_name2, 25);
+		strcpy_s(personal_item[1], personal_item2);
+		strcpy_s(personal_names[1], personal_name2);
+
+
+
+
+
 		SelectFontObject("consolas", 25, 1);
 		SelectPenObject(RGB(0, 0, 0), 1);
 		Rectangle(725, 450, 850, 475);
@@ -374,8 +535,6 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 
 
 		//*****에디트박스 지우는코드 넣어야함
-		//10001 10002 20001 20002 8 9지워야함 
-		//다시 버튼 누르는 경우를 생각해보니까 다 지워야함..
 		DestroyControl(FindControl(10001));
 		DestroyControl(FindControl(10002));
 		DestroyControl(FindControl(20001));
@@ -388,6 +547,8 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		DestroyControl(FindControl(20005));
 		DestroyControl(FindControl(20006));
 		DestroyControl(FindControl(13));
+		DestroyControl(FindControl(100));
+		DestroyControl(FindControl(222));
 
 		//두번째구성원 에디트박스 생성
 		void* p5 = CreateEdit(790, 160, 120, 30, 10003, 0);
@@ -407,6 +568,18 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 	else if (a_ctrl_id == 10004 && a_notify_code == 1000) {
 		SelectFontObject("consolas", 25, 1);
 		get_value3 = GetIntDataFromControl(10004);
+
+		char personal_item3[60];
+		GetCtrlName(FindControl(10003), personal_item3, 25);
+		strcpy_s(personal_item[2], personal_item3);
+		char personal_name3[60];
+		GetCtrlName(FindControl(10), personal_name3, 25);
+		strcpy_s(personal_names[2], personal_name3);
+
+
+
+
+
 		SelectFontObject("consolas", 25, 1);
 		SelectPenObject(RGB(0, 0, 0), 1);
 		Rectangle(725, 450, 850, 475);
@@ -436,6 +609,16 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 	else if (a_ctrl_id == 20004 && a_notify_code == 1000) {
 		SelectFontObject("consolas", 25, 1);
 		get_value4 = GetIntDataFromControl(20004);
+
+
+		char personal_item4[60];
+		GetCtrlName(FindControl(20003), personal_item4, 25);
+		strcpy_s(personal_item[3], personal_item4);
+		char personal_name4[60];
+		GetCtrlName(FindControl(11), personal_name4, 25);
+		strcpy_s(personal_names[3], personal_name4);
+
+
 		SelectFontObject("consolas", 25, 1);
 		SelectPenObject(RGB(0, 0, 0), 1);
 		Rectangle(725, 450, 850, 475);
@@ -470,6 +653,8 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		DestroyControl(FindControl(20002));
 		DestroyControl(FindControl(8));
 		DestroyControl(FindControl(9));
+		DestroyControl(FindControl(111));
+		DestroyControl(FindControl(100));
 
 
 		void* p3 = CreateEdit(790, 160, 120, 30, 10005, 0);
@@ -485,6 +670,22 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 	else if (a_ctrl_id == 10006 && a_notify_code == 1000) {
 		SelectFontObject("consolas", 25, 1);
 		get_value5 = GetIntDataFromControl(10006);
+
+
+
+		char personal_item5[60];
+		GetCtrlName(FindControl(10005), personal_item5, 25);
+		strcpy_s(personal_item[4], personal_item5);
+		char personal_name5[60];
+		GetCtrlName(FindControl(12), personal_name5, 25);
+		strcpy_s(personal_names[4], personal_name5);
+
+
+
+
+
+
+
 		SelectFontObject("consolas", 25, 1);
 		SelectPenObject(RGB(0, 0, 0), 1);
 		Rectangle(725, 450, 850, 475);
@@ -514,6 +715,17 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 	else if (a_ctrl_id == 20006 && a_notify_code == 1000) {
 		SelectFontObject("consolas", 25, 1);
 		get_value6 = GetIntDataFromControl(20006);
+
+		char personal_item6[60];
+		GetCtrlName(FindControl(20005), personal_item6, 25);
+		strcpy_s(personal_item[5], personal_item6);
+		char personal_name6[60];
+		GetCtrlName(FindControl(13), personal_name6, 25);
+		strcpy_s(personal_names[5], personal_name6);
+
+
+
+
 		SelectFontObject("consolas", 25, 1);
 		SelectPenObject(RGB(0, 0, 0), 1);
 		Rectangle(725, 450, 850, 475);
@@ -521,6 +733,68 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		TextOut(730, 450, "총:%d원", get_value5 + get_value6);
 		ShowDisplay();
 	}
+
+
+
+	//=====================================================================
+	//정산페이지
+	if (a_ctrl_id == 3007)  // 정산 페이지로 가는 버튼을 누르면
+	{
+		Clear();
+		DestroyControl(FindControl(101));
+		DestroyControl(FindControl(1000));
+		DestroyControl(FindControl(1));
+		DestroyControl(FindControl(2));
+		DestroyControl(FindControl(3));
+		DestroyControl(FindControl(4));
+		DestroyControl(FindControl(5));
+		DestroyControl(FindControl(6));
+		DestroyControl(FindControl(7));
+		DestroyControl(FindControl(8));
+		DestroyControl(FindControl(9));
+		DestroyControl(FindControl(10));
+		DestroyControl(FindControl(11));
+		DestroyControl(FindControl(12));
+		DestroyControl(FindControl(13));
+		DestroyControl(FindControl(10001));
+		DestroyControl(FindControl(10002));
+		DestroyControl(FindControl(10003));
+		DestroyControl(FindControl(10004));
+		DestroyControl(FindControl(10005));
+		DestroyControl(FindControl(10006));
+		DestroyControl(FindControl(20001));
+		DestroyControl(FindControl(20002));
+		DestroyControl(FindControl(20003));
+		DestroyControl(FindControl(20004));
+		DestroyControl(FindControl(20005));
+		DestroyControl(FindControl(20006));
+		DestroyControl(FindControl(100));
+		DestroyControl(FindControl(111));
+		DestroyControl(FindControl(222));
+		DestroyControl(FindControl(200));
+		DestroyControl(FindControl(201));
+		DestroyControl(FindControl(202));
+		DestroyControl(FindControl(203));
+		DestroyControl(FindControl(204));
+		DestroyControl(FindControl(205));
+		DestroyControl(FindControl(222));
+		DestroyControl(FindControl(222));
+		DestroyControl(FindControl(222));
+		DestroyControl(FindControl(100));
+
+
+
+
+		//정산결과 출력페이지 불러오기();
+		final_page();
+
+	}
+
+
+
+
+
+
     ShowDisplay(); // 정보를 윈도우에 출력한다.
 }
 
@@ -530,6 +804,7 @@ CMD_MESSAGE(OnCommand)
 int main()
 {
     login_page();
+	//final_page();
 
     ShowDisplay(); // 정보를 윈도우에 출력한다.
     return 0;
