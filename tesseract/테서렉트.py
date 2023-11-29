@@ -3,7 +3,7 @@ import numpy as np
 import pytesseract
 
 # 이미지 파일 경로
-filename = '/Users/jeon-yuli/Desktop/숭실대학교/1학년 2학기/프로그래밍2/프로젝트/스크린샷 2023-11-28 오후 1.55.47.png'
+filename = '/Users/jeon-yuli/Desktop/숭실대학교/1학년 2학기/프로그래밍2/프로젝트/KakaoTalk_Photo_2023-11-29-11-02-29.jpeg'
 
 # 이미지를 NumPy 배열로 변환
 img = np.array(Image.open(filename))
