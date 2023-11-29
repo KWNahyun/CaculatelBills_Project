@@ -312,9 +312,10 @@ void calcul_algo3(int a, int b, int c)
 }
 
 void calculate_final(int N) {
-	char names[3][64] = { "kwon", "ryu", "lee" };
-	char name_paid[2][64] = { "kwon", "lee" };
-	int price[2] = { 3000, 3000 };
+	// 디버깅용
+	//char names[3][64] = { "kwon", "ryu", "lee" };
+	//char name_paid[2][64] = { "kwon", "lee" };
+	//int price[2] = { 3000, 3000 };
 
 	int a = 0;
 	int b = 0;
@@ -337,9 +338,10 @@ void calculate_final(int N) {
 		}
 	}
 
-	printf(100, 300, "a = % d\n", a);
-	printf(100, 400, "b = %d\n", b);
-	printf(100, 500, "c = %d\n", c);
+	// 디버깅용
+	//printf(100, 300, "a = % d\n", a);
+	//printf(100, 400, "b = %d\n", b);
+	//printf(100, 500, "c = %d\n", c);
 
 	if (N == 2) {
 		calcul_algo2(a, b);
@@ -569,7 +571,7 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		char str3[60];
 		char str6[60];
 		GetCtrlName(FindControl(3), str3, 25);
-		GetCtrlName(FindControl(3), str6, 25);
+		GetCtrlName(FindControl(6), str6, 25);
 		strcpy_s(name_paid[0], str3);
 		strcpy_s(name_paid[1], str6);
 
@@ -579,6 +581,14 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 
 		TextOut(460, 450, "총합:%d원", price[0] + price[1]);
 		TextOut(460, 480, "N빵:%d원", (price[0] + price[1]) / N);
+
+		// 디버깅용
+		//for (int i = 0; i < 3; i++)
+		//{
+		//	printf(750, 300 + i * 50, "%s", names[i]);
+		//	printf(750, 320 + i * 50, "%s", name_paid[i]);
+		//	printf(750, 340 + i * 50, "%d", price[i]);
+		//}
 		ShowDisplay();
 
 
