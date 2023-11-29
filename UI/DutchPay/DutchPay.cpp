@@ -183,7 +183,7 @@ void main_page() {
 // 마지막 페이지에 누가 누구한테 얼마를 줘야하는지 계산하고 출력하는 함수
 // 일단 사용자들의 이름을 a, b, c로 출력함.
 // when N = 2
-void calcul_algo2(int a, int b)
+void calcul_algo2(int a, int b, char names[][50])
 {
 	int atob = 0;
 	int btoa = 0;
@@ -218,12 +218,12 @@ void calcul_algo2(int a, int b)
 		}
 	}
 
-	printf(400, 450, "a->b: %d원\n", atob);
-	printf(400, 470, "b->a: %d원\n", btoa);
+	printf(400, 450, "%s->%s: %d원\n",names[0], names[1], atob);
+	printf(400, 470, "%s->%s: %d원\n", names[1], names[0], btoa);
 }
 
 // when N = 3
-void calcul_algo3(int a, int b, int c)
+void calcul_algo3(int a, int b, int c, char names[][50])
 {
 	int mean = (a + b + c) / 3;
 	a = mean - a;
@@ -303,12 +303,12 @@ void calcul_algo3(int a, int b, int c)
 		}
 	}
 
-	printf(400, 450, "a->b: %d원\n", atob);
-	printf(400, 470, "b->a: %d원\n", btoa);
-	printf(400, 490, "b->c: %d원\n", btoc);
-	printf(650, 450, "c->b: %d원\n", ctob);
-	printf(650, 470, "a->c: %d원\n", atoc);
-	printf(650, 490, "c->a: %d원\n", ctoa);
+	printf(400, 450, "%s->%s: %d원\n", names[0], names[1], atob);
+	printf(400, 470, "%s->%s: %d원\n", names[1], names[0], btoa);
+	printf(400, 490, "%s->%s: %d원\n", names[1], names[2], btoc);
+	printf(650, 450, "%s->%s: %d원\n", names[2], names[1], ctob);
+	printf(650, 470, "%s->%s: %d원\n", names[0], names[2], atoc);
+	printf(650, 490, "%s->%s: %d원\n", names[2], names[0], ctoa);
 }
 
 void calculate_final(int N) {
@@ -344,11 +344,11 @@ void calculate_final(int N) {
 	//printf(100, 500, "c = %d\n", c);
 
 	if (N == 2) {
-		calcul_algo2(a, b);
+		calcul_algo2(a, b, names);
 	}
 
 	if (N == 3) {
-		calcul_algo3(a, b, c);
+		calcul_algo3(a, b, c, names);
 	}
 }
 
