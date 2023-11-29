@@ -180,9 +180,50 @@ void main_page() {
 	ShowDisplay();
 }
 
-// 마지막 페이지에 누가 누구한테 얼마를 줘야하는지 계산하고 출력하는 함수(멤버가 3명일 때...)
+// 마지막 페이지에 누가 누구한테 얼마를 줘야하는지 계산하고 출력하는 함수
 // 일단 사용자들의 이름을 a, b, c로 출력함.
-void calcul_algo(int a, int b, int c)
+// when N = 2
+void calcul_algo2(int a, int b)
+{
+	int atob = 0;
+	int btoa = 0;
+
+	int mean = (a + b) / 2;
+	a = mean - a;
+	b = mean - b;
+
+	if (a > 0)
+	{
+		if (b < 0)
+		{
+			while (b != 0)
+			{
+				a--;
+				b++;
+				atob++;
+			}
+		}
+	}
+
+	if (b > 0)
+	{
+		if (a < 0)
+		{
+			while (a != 0)
+			{
+				b--;
+				a++;
+				btoa++;
+			}
+		}
+	}
+
+	printf(400, 450, "a->b: %d원\n", atob);
+	printf(400, 470, "b->a: %d원\n", btoa);
+}
+
+// when N = 3
+void calcul_algo3(int a, int b, int c)
 {
 	int mean = (a + b + c) / 3;
 	a = mean - a;
@@ -270,6 +311,44 @@ void calcul_algo(int a, int b, int c)
 	printf(650, 490, "c->a: %d원\n", ctoa);
 }
 
+void calculate_final(int N) {
+	char names[3][64] = { "kwon", "ryu", "lee" };
+	char name_paid[2][64] = { "kwon", "lee" };
+	int price[2] = { 3000, 3000 };
+
+	int a = 0;
+	int b = 0;
+	int c = 0;
+
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (strcmp(name_paid[i], names[j]) == 0) {
+				// Update the amounts based on the corresponding prices
+				if (j == 0) {
+					a += price[i];
+				}
+				else if (j == 1) {
+					b += price[i];
+				}
+				else if (j == 2) {
+					c += price[i];
+				}
+			}
+		}
+	}
+
+	printf(100, 300, "a = % d\n", a);
+	printf(100, 400, "b = %d\n", b);
+	printf(100, 500, "c = %d\n", c);
+
+	if (N == 2) {
+		calcul_algo2(a, b);
+	}
+
+	if (N == 3) {
+		calcul_algo3(a, b, c);
+	}
+}
 
 //정산결과출력페이지=====================================================================
 void final_page() {
@@ -285,6 +364,7 @@ void final_page() {
 	printf(125, 50, "MEMBER");
 	Rectangle(330, 100, 950, 550); //최종정산 결과 출력박스
 	printf(600, 50, "정산");
+
 
 
 	//나중에 지워야함 일단 실행 돌려볼라고 임의로 앞계속 반복하기 귀찮아서 일단 썻으
@@ -332,7 +412,7 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		Line(615, 150, 615, 400);
 	
 
-
+		calculate_final(N);
 	}
 
 	if (a_ctrl_id == 302) {
@@ -357,6 +437,7 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		TextOut(650, 350, "총: %d원", get_value3 + get_value4);
 		Line(615, 150, 615, 400);
 
+		calculate_final(N);
 
 	}
 
@@ -382,12 +463,10 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		TextOut(650, 350, "총: %d원", get_value5 + get_value6);
 		Line(615, 150, 615, 400);
 
+		calculate_final(N);
+
+
 	}
-
-
-
-
-
 
 
 	//==================================================================
@@ -443,7 +522,7 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
         }
     }
 
-    if (a_ctrl_id == 3006)  // 정산 페이지로 가는 버튼을 누르면
+    if (a_ctrl_id == 3006)  // 메인 페이지로 가는 버튼을 누르면
     {
         Clear();
         DestroyControl(FindControl(3000));
@@ -501,6 +580,7 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		TextOut(460, 450, "총합:%d원", price[0] + price[1]);
 		TextOut(460, 480, "N빵:%d원", (price[0] + price[1]) / N);
 		ShowDisplay();
+
 
 	}
 
@@ -872,6 +952,7 @@ void OnCommand(INT32 a_ctrl_id, INT32 a_notify_code, void* ap_ctrl)
 		//정산결과 출력페이지 불러오기();
 		final_page();
 
+
 	}
 
 
@@ -887,7 +968,8 @@ CMD_MESSAGE(OnCommand)
 
 int main()
 {
-    login_page();
+    // login_page();
+	main_page();
 	//final_page();
 
     ShowDisplay(); // 정보를 윈도우에 출력한다.
