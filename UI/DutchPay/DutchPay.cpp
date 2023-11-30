@@ -329,56 +329,57 @@ void calcul_algo3(int a, int b, int c, char names[][50])
 
 	// 개별 소비 더하기
 	// a의 개별 소비1
-	if (personal_names[0] == names[1])
+	
+	if (strcmp(personal_names[0], names[1]) == 0)
 	{
 		atob = atob + get_value1;
 	}
-	if (personal_names[0] == names[2])
+	if (strcmp(personal_names[0], names[2]) == 0)
 	{
 		atoc = atoc + get_value1;
 	}
 	// a의 개별 소비2
-	if (personal_names[1] == names[1])
+	if (strcmp(personal_names[1], names[1]) == 0)
 	{
 		atob = atob + get_value2;
 	}
-	if (personal_names[1] == names[2])
+	if (strcmp(personal_names[1], names[2]) == 0)
 	{
 		atoc = atoc + get_value2;
 	}
 	// b의 개별 소비1
-	if (personal_names[2] == names[0])
+	if (strcmp(personal_names[2], names[0]) == 0)
 	{
 		btoa = btoa + get_value3;
 	}
-	if (personal_names[2] == names[2])
+	if (strcmp(personal_names[2], names[2]) == 0)
 	{
 		btoc = btoc + get_value3;
 	}
 	// b의 개별 소비2
-	if (personal_names[3] == names[0])
+	if (strcmp(personal_names[3], names[2]) == 0)
 	{
 		btoa = btoa + get_value4;
 	}
-	if (personal_names[3] == names[2])
+	if (strcmp(personal_names[3], names[2]) == 0)
 	{
 		btoc = btoc + get_value4;
 	}
 	// c의 개별 소비1
-	if (personal_names[4] == names[0])
+	if (strcmp(personal_names[4], names[0]) == 0)
 	{
 		ctoa = ctoa + get_value5;
 	}
-	if (personal_names[4] == names[1])
+	if (strcmp(personal_names[4], names[1]) == 0)
 	{
 		ctob = ctob + get_value5;
 	}
 	// c의 개별 소비2
-	if (personal_names[5] == names[0])
+	if (strcmp(personal_names[5], names[0]) == 0)
 	{
 		ctoa = ctoa + get_value6;
 	}
-	if (personal_names[5] == names[1])
+	if (strcmp(personal_names[5], names[1]) == 0)
 	{
 		ctob = ctob + get_value6;
 	}
@@ -388,6 +389,10 @@ void calcul_algo3(int a, int b, int c, char names[][50])
 	//{
 	//	printf(100, 300 + 30 * i, "%s", personal_names[i]);
 	//}
+	printf(100, 300, "%s: %d", personal_names[0], get_value1);
+	printf(100, 350, "%s: %d", personal_names[1], get_value2);
+	printf(100, 400, "%s: %d", personal_names[2], get_value3);
+
 
 	printf(400, 450, "%s->%s: %d원\n", names[0], names[1], atob);
 	printf(400, 470, "%s->%s: %d원\n", names[1], names[0], btoa);
