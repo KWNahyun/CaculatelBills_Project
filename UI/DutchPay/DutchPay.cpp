@@ -383,10 +383,11 @@ void calcul_algo3(int a, int b, int c, char names[][50])
 		ctob = ctob + get_value6;
 	}
 
-	for (int i = 0; i < 6; i++)
-	{
-		printf(100, 300 + 30 * i, "%s", personal_names[i]);
-	}
+	// 디버깅용
+	//for (int i = 0; i < 6; i++)
+	//{
+	//	printf(100, 300 + 30 * i, "%s", personal_names[i]);
+	//}
 
 	printf(400, 450, "%s->%s: %d원\n", names[0], names[1], atob);
 	printf(400, 470, "%s->%s: %d원\n", names[1], names[0], btoa);
