@@ -389,9 +389,9 @@ void calcul_algo3(int a, int b, int c, char names[][50])
 	//{
 	//	printf(100, 300 + 30 * i, "%s", personal_names[i]);
 	//}
-	printf(100, 300, "%s: %d", personal_names[0], get_value1);
-	printf(100, 350, "%s: %d", personal_names[1], get_value2);
-	printf(100, 400, "%s: %d", personal_names[2], get_value3);
+	//printf(100, 300, "%s: %d", personal_names[0], get_value1);
+	//printf(100, 350, "%s: %d", personal_names[1], get_value2);
+	//printf(100, 400, "%s: %d", personal_names[2], get_value3);
 
 
 	printf(400, 450, "%s->%s: %d원\n", names[0], names[1], atob);
@@ -1069,8 +1069,8 @@ CMD_MESSAGE(OnCommand)
 
 int main()
 {
-    // login_page();
-	main_page();
+    login_page();
+	// main_page();
 	//final_page();
 
     ShowDisplay(); // 정보를 윈도우에 출력한다.
