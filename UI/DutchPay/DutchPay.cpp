@@ -218,6 +218,30 @@ void calcul_algo2(int a, int b, char names[][50])
 		}
 	}
 
+	// a의 개별 소비1
+	if (personal_names[0] == names[1])
+	{
+		atob = atob + get_value1;
+	}
+	
+	// a의 개별 소비2
+	if (personal_names[1] == names[1])
+	{
+		atob = atob + get_value2;
+	}
+	
+	// b의 개별 소비1
+	if (personal_names[2] == names[0])
+	{
+		btoa = btoa + get_value3;
+	}
+	
+	// b의 개별 소비2
+	if (personal_names[3] == names[0])
+	{
+		btoa = btoa + get_value4;
+	}
+	
 	printf(400, 450, "%s->%s: %d원\n",names[0], names[1], atob);
 	printf(400, 470, "%s->%s: %d원\n", names[1], names[0], btoa);
 }
@@ -301,6 +325,67 @@ void calcul_algo3(int a, int b, int c, char names[][50])
 				ctob++;
 			}
 		}
+	}
+
+	// 개별 소비 더하기
+	// a의 개별 소비1
+	if (personal_names[0] == names[1])
+	{
+		atob = atob + get_value1;
+	}
+	if (personal_names[0] == names[2])
+	{
+		atoc = atoc + get_value1;
+	}
+	// a의 개별 소비2
+	if (personal_names[1] == names[1])
+	{
+		atob = atob + get_value2;
+	}
+	if (personal_names[1] == names[2])
+	{
+		atoc = atoc + get_value2;
+	}
+	// b의 개별 소비1
+	if (personal_names[2] == names[0])
+	{
+		btoa = btoa + get_value3;
+	}
+	if (personal_names[2] == names[2])
+	{
+		btoc = btoc + get_value3;
+	}
+	// b의 개별 소비2
+	if (personal_names[3] == names[0])
+	{
+		btoa = btoa + get_value4;
+	}
+	if (personal_names[3] == names[2])
+	{
+		btoc = btoc + get_value4;
+	}
+	// c의 개별 소비1
+	if (personal_names[4] == names[0])
+	{
+		ctoa = ctoa + get_value5;
+	}
+	if (personal_names[4] == names[1])
+	{
+		ctob = ctob + get_value5;
+	}
+	// c의 개별 소비2
+	if (personal_names[5] == names[0])
+	{
+		ctoa = ctoa + get_value6;
+	}
+	if (personal_names[5] == names[1])
+	{
+		ctob = ctob + get_value6;
+	}
+
+	for (int i = 0; i < 6; i++)
+	{
+		printf(100, 300 + 30 * i, "%s", personal_names[i]);
 	}
 
 	printf(400, 450, "%s->%s: %d원\n", names[0], names[1], atob);
