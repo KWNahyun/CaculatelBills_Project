@@ -265,6 +265,8 @@ int main() {
         // 상품 번호 선택 함수 호출
         selectItemsProcess();
 
+        calculateAndDisplayTotalOwed();
+
     }
     else if(method == 2)
     {
